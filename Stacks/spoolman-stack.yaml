@@ -1,0 +1,31 @@
+version: '3.2'
+
+services:
+  spoolman:
+    image: ghcr.io/donkie/spoolman:0.21.0
+    volumes:
+      - /mnt/docker-storage/spoolman/data:/home/app/.local/share/spoolman
+    environment:
+      - TZ=America/New_York
+    networks:
+      - swarm_network
+    ports:
+      - "7912:8000"
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        - homepage.group=3D Printing
+        - homepage.name=Spoolman
+        - homepage.href=http://spoolman.lan/
+        - homepage.description=Filament Manager
+        - homepage.icon=/icons/spoolmanicon.png
+        - homepage.widget.type=spoolman
+        - homepage.widget.url=http://spoolman_spoolman:8000
+
+
+networks:
+  swarm_network:
+    driver: overlay
+    attachable: true
+    external: true

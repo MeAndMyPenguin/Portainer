@@ -1,0 +1,27 @@
+version: '3.2'
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:1.32.5
+    volumes:
+      - /mnt/docker-storage/vaultwarden/data:/data
+    environment:
+      WEBSOCKET_ENABLED: "true"  # Enable WebSocket notifications.
+      SHOW_PASSWORD_HINT: "false"
+      SIGNUPS_ALLOWED: "false"
+      INVITATIONS_ALLOWED: "false"
+
+    networks:
+      - swarm_network
+    ports:
+      - "9080:80"
+      - "3012:3012"
+    deploy:
+      mode: replicated
+      replicas: 1
+
+networks:
+  swarm_network:
+    driver: overlay
+    attachable: true
+    external: true

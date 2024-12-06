@@ -1,0 +1,36 @@
+version: '3.2'
+
+services:
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - WEBUI_PORT=8040
+    volumes:
+      - /mnt/docker-storage/qbittorent/config:/config
+      - /mnt/docker-storage/qbittorent/downloads:/downloads
+    networks:
+      - swarm_network
+    ports:
+      - '8040:8040'
+      - '6881:6881'
+      - '6881:6881/udp'
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        - homepage.group=Download
+        - homepage.name=qBittorrent
+        - homepage.href=http://qbittorrent.lan/
+        - homepage.description=Torrent Client
+        - homepage.icon=/icons/qbittorrenticon.png
+        - homepage.widget.type=qbittorrent
+        - homepage.widget.url=http://qbittorrent_qbittorrent:8040
+
+networks:
+  swarm_network:
+    driver: overlay
+    attachable: true
+    external: true

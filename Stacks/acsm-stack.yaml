@@ -1,0 +1,36 @@
+version: "3.2"
+
+services:
+  acsm:
+    image: meandmypenguin/acsm:2.4.3
+    entrypoint: ./assetto-multiserver-manager
+    volumes:
+      - /mnt/docker-storage/acsm/servers.yml:/home/assetto/server-manager/servers.yml
+      - /mnt/docker-storage/acsm/config.yml:/home/assetto/server-manager/config.yml
+      - /mnt/docker-storage/acsm/assetto:/home/assetto/server-manager/assetto
+      - /mnt/docker-storage/acsm/servers:/home/assetto/server-manager/servers
+      - /mnt/docker-storage/acsm/shared_store.json:/home/assetto/server-manager/shared_store.json
+      - /mnt/docker-storage/acsm/ACSM.License:/home/assetto/server-manager/ACSM.License
+    networks:
+      - swarm_network
+    ports:
+      - 8772:8772
+      - 9601:9601
+      - 9601:9601/udp
+      - 9602:9602
+      - 9602:9602/udp      
+      - 8081:8081
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        - homepage.group=Game Servers
+        - homepage.name=Assetto Corsa Server Manager
+        - homepage.href=https://ac.penguinhs.com/
+        - homepage.description=Server manager for Assetto Corsa
+        - homepage.icon=/icons/acsmicon.png
+
+
+networks:
+  swarm_network:
+    external: true

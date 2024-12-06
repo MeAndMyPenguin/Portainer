@@ -1,0 +1,35 @@
+version: "3.2"
+
+services:
+  pihole:
+    image: pihole/pihole:latest
+    environment:
+      TZ: "America/New_York"
+      WEBPASSWORD: "OreoMolly@1"
+    volumes:
+      - /mnt/docker-storage/pihole/pihole:/etc/pihole
+      - /mnt/docker-storage/pihole/dnsmasq:/etc/dnsmasq.d
+    networks:
+      - swarm_network
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "8080:80/tcp"
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        - homepage.group=Network
+        - homepage.name=Pihole
+        - homepage.href=http://pihole.lan/admin/
+        - homepage.description=Network DNS Ad Blocking
+        - homepage.icon=/icons/piholeicon.png
+        - homepage.widget.type=pihole
+        - homepage.widget.url=http://10.0.0.82:8080
+        - homepage.widget.key=d5c3b0ad26cafa3bd49f44c921890eff68dc2554194cf549b44c9439575ae3e6
+
+networks:
+  swarm_network:
+    driver: overlay
+    attachable: true
+    external: true
