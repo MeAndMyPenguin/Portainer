@@ -1,4 +1,4 @@
-version: '3.2'
+version: "3.8"
 
 services:
   vaultwarden:
@@ -10,7 +10,6 @@ services:
       SHOW_PASSWORD_HINT: "false"
       SIGNUPS_ALLOWED: "false"
       INVITATIONS_ALLOWED: "false"
-
     networks:
       - swarm_network
     ports:
@@ -19,9 +18,12 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-
+      labels:
+        - homepage.group=Password Manager
+        - homepage.name=Vaultwarden
+        - homepage.href=https://vw.penguinhs.com/
+        - homepage.description=Password Manager
+        - homepage.icon=/icons/vaultwardenicon.png
 networks:
   swarm_network:
-    driver: overlay
-    attachable: true
     external: true

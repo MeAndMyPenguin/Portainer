@@ -1,4 +1,4 @@
-version: "3.2"
+version: "3.8"
 
 services:
   pihole:
@@ -27,7 +27,6 @@ services:
         - homepage.widget.type=pihole
         - homepage.widget.url=http://10.0.0.82:8080
         - homepage.widget.key=d5c3b0ad26cafa3bd49f44c921890eff68dc2554194cf549b44c9439575ae3e6
-
 networks:
   swarm_network:
     driver: overlay

@@ -1,4 +1,4 @@
-version: '3.2'
+version: "3.8"
 
 services:
   npm:
@@ -26,12 +26,9 @@ services:
         - homepage.description=Reverse Proxy
         - homepage.icon=/icons/npmicon.png
         - homepage.widget.type=npm
-        - homepage.widget.url=http://nginx-proxy-manager_npm:81
+        - homepage.widget.url=http://npm_npm:81
         - homepage.widget.username=jorgeart0208@gmail.com
         - homepage.widget.password=OreoMolly@1
-
 networks:
   swarm_network:
-    driver: overlay
-    attachable: true
     external: true

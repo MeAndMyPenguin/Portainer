@@ -1,4 +1,4 @@
-version: '3.2'
+version: "3.8"
 
 services:
   spoolman:
@@ -22,10 +22,6 @@ services:
         - homepage.icon=/icons/spoolmanicon.png
         - homepage.widget.type=spoolman
         - homepage.widget.url=http://spoolman_spoolman:8000
-
-
 networks:
   swarm_network:
-    driver: overlay
-    attachable: true
     external: true

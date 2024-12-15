@@ -1,8 +1,8 @@
-version: "3.2"
+version: "3.8"
 
 services:
   acsm:
-    image: meandmypenguin/acsm:2.4.3
+    image: meandmypenguin/acsm:2.4.4
     entrypoint: ./assetto-multiserver-manager
     volumes:
       - /mnt/docker-storage/acsm/servers.yml:/home/assetto/server-manager/servers.yml
@@ -20,6 +20,7 @@ services:
       - 9602:9602
       - 9602:9602/udp      
       - 8081:8081
+      - 8082:8082
     deploy:
       mode: replicated
       replicas: 1
@@ -29,8 +30,6 @@ services:
         - homepage.href=https://ac.penguinhs.com/
         - homepage.description=Server manager for Assetto Corsa
         - homepage.icon=/icons/acsmicon.png
-
-
 networks:
   swarm_network:
     external: true

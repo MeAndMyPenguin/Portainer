@@ -1,4 +1,4 @@
-version: '3.2'
+version: "3.8"
 
 services:
   homepage:
@@ -7,10 +7,17 @@ services:
       - /mnt/docker-storage/homepage/config:/app/config
       - /mnt/docker-storage/homepage/icons:/app/public/icons
       - /mnt/docker-storage/homepage/images:/app/public/images
-      - /data/glusterfs/swarmvol/brick1:/mnt/docker-storage
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /mnt/docker-storage:/mnt/storage
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - TZ="America/New_York"
+    extra_hosts:
+      raspi1: 10.0.0.82
+      raspi2: 10.0.0.130
+      raspi3: 10.0.0.223
+      raspizero: 10.0.0.190
+      penguinnas: 10.0.0.114
+      ender3v2: 10.0.0.156
     networks:
       - swarm_network
     ports:
@@ -20,9 +27,6 @@ services:
       replicas: 1
       placement:
         constraints: [node.role == manager]
-
 networks:
   swarm_network:
-    driver: overlay
-    attachable: true
     external: true
