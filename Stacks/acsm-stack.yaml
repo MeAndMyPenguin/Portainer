@@ -1,8 +1,6 @@
-version: "3.8"
-
 services:
   acsm:
-    image: meandmypenguin/acsm:2.4.4
+    image: meandmypenguin/acsm:2.4.5
     entrypoint: ./assetto-multiserver-manager
     volumes:
       - /mnt/docker-storage/acsm/servers.yml:/home/assetto/server-manager/servers.yml
@@ -14,13 +12,13 @@ services:
     networks:
       - swarm_network
     ports:
-      - 8772:8772
-      - 9601:9601
-      - 9601:9601/udp
-      - 9602:9602
-      - 9602:9602/udp      
-      - 8081:8081
-      - 8082:8082
+      - 8772:8772 #web ui
+      - 9600:9600 #server 1
+      - 9600:9600/udp #server1
+      - 9601:9601 #server 2
+      - 9601:9601/udp #server 2     
+      - 8081:8081 #server 1 lobby list
+      - 8082:8082 #server 2 lobby list
     deploy:
       mode: replicated
       replicas: 1

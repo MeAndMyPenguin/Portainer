@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   agent:
     image: portainer/agent:latest
@@ -17,9 +15,11 @@ services:
     image: portainer/portainer-ce:latest
     command: -H tcp://tasks.agent:9001 --tlsskipverify
     volumes:
-      #- /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /mnt/docker-storage/portainer/data:/data
       - /usr/share/zoneinfo/America/New_York:/etc/localtime
+    environment:
+      - "TZ=America/New_York"
     networks:
       - swarm_network
     ports:
@@ -34,13 +34,13 @@ services:
       labels:
         - homepage.group=Docker
         - homepage.name=Portainer
-        - homepage.href=https://portainer.penguinhs.com/
+        - homepage.href=http://portainer.lan/
         - homepage.description=Docker Management
         - homepage.icon=/icons/portainericon.png
         - homepage.widget.type=portainer
-        - homepage.widget.url=https://portainer_portainer:9443
+        - homepage.widget.url=http://portainer_portainer:9000
         - homepage.widget.env=1
-        - homepage.widget.key=ptr_MR9tKnMm1pE1Pw/cGnQqcEL/sutq5uKxW2
+        - homepage.widget.key=ptr_dvUOVnaHgQyCJgxz18LIqQ0Z96dyocVxMVmJ80/4DEM=
 networks:
   swarm_network:
     external: true
